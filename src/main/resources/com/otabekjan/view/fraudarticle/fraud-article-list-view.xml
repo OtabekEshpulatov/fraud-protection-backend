@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://fraudArticleListView.title"
+      focusComponent="fraudArticlesDataGrid">
+    <data>
+        <collection id="fraudArticlesDc"
+                    class="com.otabekjan.entity.FraudArticle">
+            <fetchPlan extends="_base"/>
+            <loader id="fraudArticlesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from FraudArticle e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="fraudArticlesDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createButton" action="fraudArticlesDataGrid.create"/>
+            <button id="editButton" action="fraudArticlesDataGrid.edit"/>
+            <button id="removeButton" action="fraudArticlesDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="fraudArticlesDl"/>
+        </hbox>
+        <dataGrid id="fraudArticlesDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="fraudArticlesDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="title"/>
+                <column property="overView"/>
+                <column property="readTimes"/>
+                <column property="likes"/>
+                <column property="markdownBody"/>
+                <column property="overviewMedia"/>
+                <column property="overviewMediaType"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>
