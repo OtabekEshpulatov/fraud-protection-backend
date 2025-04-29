@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema elementFormDefault="qualified"
+           targetNamespace="http://company.com/schema/app-ui-components"
+           xmlns="http://company.com/schema/app-ui-components"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:layout="http://jmix.io/schema/flowui/layout">
+
+    <!-- TranslateTextField-->
+    <xs:element name="translateField">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="layout:textFieldComponent">
+                    <xs:choice minOccurs="0">
+                        <xs:element name="tooltip" type="layout:tooltipElement"/>
+
+                        <xs:element name="prefix" minOccurs="0" type="layout:prefixOrSuffixComponent"/>
+                        <xs:element name="suffix" minOccurs="0" type="layout:prefixOrSuffixComponent"/>
+                    </xs:choice>
+
+                    <xs:attribute name="value" type="xs:string"/>
+                    <xs:attribute name="autofocus" type="xs:boolean"/>
+                    <xs:attribute name="autoselect" type="xs:boolean"/>
+                    <xs:attribute name="themeNames" type="layout:textFieldThemeNames"/>
+                    <xs:attribute name="clearButtonVisible" type="xs:boolean"/>
+
+                    <xs:attributeGroup ref="layout:hasTitle"/>
+                    <xs:attributeGroup ref="layout:hasPlaceholder"/>
+                    <xs:attributeGroup ref="layout:hasAutocorrect"/>
+                    <xs:attributeGroup ref="layout:hasAutocomplete"/>
+                    <xs:attributeGroup ref="layout:hasAutocapitalize"/>
+                    <xs:attributeGroup ref="layout:hasValueChangeMode"/>
+                    <xs:attributeGroup ref="layout:hasFocusableAttributes"/>
+                    <xs:attributeGroup ref="layout:hasAriaLabel"/>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- TranslateTextArea-->
+    <xs:element name="translateAreaField">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="layout:textAreaComponent">
+                    <xs:attribute name="autofocus" type="xs:boolean"/>
+                    <xs:attribute name="value" type="xs:string"/>
+                    <xs:attribute name="pattern" type="xs:string"/>
+                    <xs:attribute name="allowedCharPattern" type="layout:resourceString"/>
+                    <xs:attribute name="autoselect" type="xs:boolean"/>
+                    <xs:attribute name="clearButtonVisible" type="xs:boolean"/>
+                    <xs:attribute name="themeNames" type="layout:textAreaThemeNames"/>
+                    <xs:attribute name="maxLength" type="xs:integer"/>
+                    <xs:attribute name="minLength" type="xs:integer"/>
+
+                    <xs:attributeGroup ref="layout:hasSize"/>
+                    <xs:attributeGroup ref="layout:hasLabel"/>
+                    <xs:attributeGroup ref="layout:hasEnabled"/>
+                    <xs:attributeGroup ref="layout:hasFocusableAttributes"/>
+                    <xs:attributeGroup ref="layout:hasRequired"/>
+                    <xs:attributeGroup ref="layout:hasClassNames"/>
+                    <xs:attributeGroup ref="layout:hasValidation"/>
+                    <xs:attributeGroup ref="layout:hasAutocorrect"/>
+                    <xs:attributeGroup ref="layout:hasHelperText"/>
+                    <xs:attributeGroup ref="layout:hasPlaceholder"/>
+                    <xs:attributeGroup ref="layout:hasAutocomplete"/>
+                    <xs:attributeGroup ref="layout:hasAutocapitalize"/>
+                    <xs:attributeGroup ref="layout:hasValueChangeMode"/>
+                    <xs:attributeGroup ref="layout:hasValueAndElement"/>
+                    <xs:attributeGroup ref="layout:hasDataContainer"/>
+                    <xs:attributeGroup ref="layout:hasAriaLabel"/>
+                    <xs:attributeGroup ref="layout:hasTrimming"/>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- TranslateRichTextEditor -->
+    <xs:element name="translateRichTextEditor">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="layout:richTextEditorComponent">
+                    <xs:attributeGroup ref="layout:hasDataContainer"/>
+                    <xs:attributeGroup ref="layout:hasLabel"/>
+                    <xs:attributeGroup ref="layout:hasEnabled"/>
+                    <xs:attributeGroup ref="layout:hasClassNames"/>
+                    <xs:attributeGroup ref="layout:hasSize"/>
+                    <xs:attributeGroup ref="layout:hasHelperText"/>
+                    <xs:attributeGroup ref="layout:hasValueAndElement"/>
+                    <xs:attributeGroup ref="layout:hasAriaLabel"/>
+
+                    <xs:attribute name="valueChangeMode" type="layout:valueChangeModeEnum"/>
+                    <xs:attribute name="themeNames" type="layout:richTextEditorThemeNames"/>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

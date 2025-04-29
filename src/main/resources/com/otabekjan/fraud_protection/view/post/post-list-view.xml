@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://postListView.title"
+      focusComponent="postsDataGrid">
+    <data>
+        <collection id="postsDc"
+                    class="com.otabekjan.fraud_protection.entity.Post">
+            <fetchPlan extends="_base">
+                <property name="user" fetchPlan="_base"/>
+                <property name="region" fetchPlan="_base"/>
+                <property name="chat" fetchPlan="_base"/>
+                <property name="medias" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="postsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Post e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="postsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createButton" action="postsDataGrid.createAction"/>
+            <button id="editButton" action="postsDataGrid.editAction"/>
+            <button id="removeButton" action="postsDataGrid.removeAction"/>
+            <simplePagination id="pagination" dataLoader="postsDl"/>
+        </hbox>
+        <dataGrid id="postsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="postsDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="createAction" type="list_create"/>
+                <action id="editAction" type="list_edit"/>
+                <action id="removeAction" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="user"/>
+                <column property="title"/>
+                <column property="body"/>
+                <column property="tags"/>
+                <column property="region"/>
+                <column property="chat"/>
+                <column property="active"/>
+            </columns>
+        </dataGrid>
+        <simplePagination dataLoader="postsDl" itemsPerPageVisible="true"/>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://postRequestDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="postRequestDc"
+                  class="com.otabekjan.fraud_protection.entity.PostRequest">
+            <fetchPlan extends="_base">
+                <property name="region" fetchPlan="_base"/>
+                <property name="user" fetchPlan="_base"/>
+                <property name="approvedBy" fetchPlan="_base"/>
+                <property name="medias" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="postRequestDl"/>
+            <collection id="mediasDc" property="medias"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="postRequestDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+                <responsiveStep minWidth="40em" columns="2"/>
+            </responsiveSteps>
+            <textField id="titleField" property="title"/>
+            <textArea id="bodyField" height="9.5em" property="body"/>
+            <dateTimePicker id="approveDateField" property="approveDate"/>
+            <entityPicker id="userField" property="user">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="regionField" property="region">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="approvedByField" property="approvedBy">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+        </formLayout>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button action="mediasDataGrid.createAction"/>
+            <button action="mediasDataGrid.editAction"/>
+            <button action="mediasDataGrid.removeAction"/>
+        </hbox>
+        <dataGrid id="mediasDataGrid" dataContainer="mediasDc" width="100%" height="100%">
+            <actions>
+                <action id="createAction" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="editAction" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="removeAction" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="sort"/>
+                <column property="media"/>
+            </columns>
+        </dataGrid>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

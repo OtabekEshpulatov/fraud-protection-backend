@@ -1,0 +1,9 @@
+<fetchPlans xmlns="http://jmix.io/schema/core/fetch-plans">
+
+    <fetchPlan name="latest-posts" entity="Post" extends="_base">
+        <property name="medias"/>
+        <property name="region"/>
+    </fetchPlan>
+
+
+</fetchPlans>

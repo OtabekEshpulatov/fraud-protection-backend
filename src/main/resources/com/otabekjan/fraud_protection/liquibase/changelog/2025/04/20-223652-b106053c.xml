@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="1745181417508-1" author="Otabek.E">
+        <createProcedure dbms="postgresql">
+            CREATE OR REPLACE FUNCTION count_occurrences(source TEXT, matcher TEXT)
+    RETURNS INT AS $$
+DECLARE
+            counter INT := 0;
+    e TEXT;
+    inner_e TEXT;
+            BEGIN
+    FOREACH e IN ARRAY regexp_split_to_array(matcher, ',')
+        LOOP
+            FOREACH inner_e in array regexp_split_to_array(source,',')
+                LOOP
+                if(trim(lower(e)) = trim(lower(inner_e))) then
+                    counter = counter +1;
+                    EXIT;
+            end if;
+            end loop;
+            END LOOP;
+
+            RETURN counter;
+            END;
+$$ LANGUAGE plpgsql;
+
+        </createProcedure>
+    </changeSet>
+</databaseChangeLog>

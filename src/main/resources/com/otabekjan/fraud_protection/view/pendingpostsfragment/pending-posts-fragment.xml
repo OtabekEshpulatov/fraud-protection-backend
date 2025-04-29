@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fragment xmlns="http://jmix.io/schema/flowui/fragment">
+    <data>
+        <collection id="postRequestsDc" class="com.otabekjan.fraud_protection.entity.PostRequest">
+            <loader id="postRequestDl">
+                <query>
+                    <![CDATA[select e from PostRequest e where e.approveDate is null]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <content>
+        <vbox id="root">
+            <hbox>
+                <button id="refreshButton" icon="vaadin:refresh"/>
+                <button id="approveButton" action="postRequestsGrid.rejectAction" themeNames="error"/>
+            </hbox>
+            <dataGrid id="postRequestsGrid" dataContainer="postRequestsDc" selectionMode="MULTI">
+                <actions>
+                    <action id="rejectAction" icon="lumo:cross"/>
+                </actions>
+                <columns>
+                    <column property="title"/>
+                    <column property="region"/>
+                    <column property="createdDate"/>
+                    <column property="createdBy"/>
+                </columns>
+            </dataGrid>
+        </vbox>
+    </content>
+</fragment>

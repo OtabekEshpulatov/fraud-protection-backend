@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://postRequesApprovalView.title"
+      focusComponent="form">
+    <data>
+        <instance id="postRequestDc"
+                  class="com.otabekjan.fraud_protection.entity.PostRequest">
+            <fetchPlan extends="_base">
+                <property name="user" fetchPlan="_base"/>
+                <property name="region" fetchPlan="_base"/>
+                <property name="medias" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="postRequestDl"/>
+            <collection id="mediasDc" property="medias"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="postRequestDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1" labelsPosition="ASIDE"/>
+                <responsiveStep minWidth="40em" columns="2" labelsPosition="ASIDE"/>
+            </responsiveSteps>
+            <formItem>
+                <entityPicker id="userField" property="user">
+                    <actions>
+                        <action id="entityLookupAction" type="entity_lookup"/>
+                        <action id="entityClearAction" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+            </formItem>
+            <formItem>
+                <textField id="titleField" property="title"/>
+            </formItem>
+            <formItem>
+                <textArea id="bodyField" height="9.5em" property="body"/>
+            </formItem>
+            <formItem>
+                <textField id="tags" required="true" label="Tags (comma seperated)"/>
+            </formItem>
+            <formItem>
+                <entityPicker id="regionField" property="region">
+                    <actions>
+                        <action id="entityLookupAction" type="entity_lookup"/>
+                        <action id="entityClearAction" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="approveDateField" property="approveDate"/>
+            </formItem>
+        </formLayout>
+        <h4 text="msg://com.otabekjan.fraud_protection.entity/Post.medias"/>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button action="mediasDataGrid.createAction"/>
+            <button action="mediasDataGrid.editAction"/>
+            <button action="mediasDataGrid.removeAction"/>
+        </hbox>
+        <dataGrid id="mediasDataGrid" dataContainer="mediasDc" width="100%" minHeight="20em">
+            <actions>
+                <action id="createAction" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="editAction" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="removeAction" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="sort"/>
+                <column property="media"/>
+            </columns>
+        </dataGrid>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>
