@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://regionDetailView.title"
+      xmlns:app="http://company.com/schema/app-ui-components"
+      focusComponent="form">
+    <data>
+        <instance id="regionDc"
+                  class="com.otabekjan.fraud_protection.entity.Region">
+            <fetchPlan extends="_base"/>
+            <loader id="regionDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="regionDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+                <responsiveStep minWidth="40em" columns="2"/>
+            </responsiveSteps>
+            <app:translateField id="nameField" property="name" colspan="2"/>
+            <textField id="sortField" property="sort"/>
+            <checkbox id="activeField" property="active"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

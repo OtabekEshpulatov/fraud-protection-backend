@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://Translator">
+    <data>
+        <collection id="translationDc"
+                    class="com.otabekjan.fraud_protection.entity.TranslateEntity">
+            <fetchPlan extends="_local"/>
+            <loader id="translationDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from TranslateEntity e]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.entityId=:entityId</c:where>
+                            </c:jpql>
+                            <c:jpql>
+                                <c:where>e.entityField=:entityField</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout>
+        <tabSheet id="tabSheet" width="100%" height="auto" themeNames="equal-width-tabs" classNames="figma"/>
+        <hbox width="100%" justifyContent="END">
+            <button id="cancelBtn" text="Cancel" themeNames="tertiary error small"/>
+            <button id="saveBtn" text="Save" themeNames="primary small"/>
+        </hbox>
+    </layout>
+</view>

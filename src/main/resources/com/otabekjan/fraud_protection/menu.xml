@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/flowui/menu">
+
+    <menu id="application" opened="true" title="Application" description="Core screens">
+        <item view="User.list" title="Users"/>
+        <item view="Post.list" title="Posts"/>
+        <item view="PostRequest.list" title="Pending posts"/>
+        <item view="Region.list" title="Regions"/>
+    </menu>
+
+</menu-config>

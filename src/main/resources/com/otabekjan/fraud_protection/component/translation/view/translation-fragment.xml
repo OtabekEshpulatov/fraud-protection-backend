@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fragment xmlns="http://jmix.io/schema/flowui/fragment">
+    <data>
+        <instance id="translationDc" class="com.otabekjan.fraud_protection.entity.TranslateEntity">
+            <loader id="translationDl"/>
+        </instance>
+    </data>
+    <content>
+        <vbox id="root" width="100%" padding="false" margin="false">
+            <formLayout id="form" dataContainer="translationDc" width="100%">
+                <textArea id="translatedField" property="translated" label=" "/>
+            </formLayout>
+        </vbox>
+    </content>
+</fragment>

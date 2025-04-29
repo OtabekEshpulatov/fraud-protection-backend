@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://postRequestListView.title"
+      focusComponent="postRequestsDataGrid">
+    <data>
+        <collection id="postRequestsDc"
+                    class="com.otabekjan.fraud_protection.entity.PostRequest">
+            <fetchPlan extends="_base">
+                <property name="user" fetchPlan="_base"/>
+                <property name="region" fetchPlan="_base"/>
+                <property name="approvedBy" fetchPlan="_base"/>
+                <property name="medias" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="postRequestsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from PostRequest e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="postRequestsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createButton" action="postRequestsDataGrid.createAction"/>
+            <button id="editButton" action="postRequestsDataGrid.editAction"/>
+            <button id="removeButton" action="postRequestsDataGrid.removeAction"/>
+            <simplePagination id="pagination" dataLoader="postRequestsDl"/>
+        </hbox>
+        <dataGrid id="postRequestsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="postRequestsDc"
+                  columnReorderingAllowed="true" selectionMode="MULTI">
+            <actions>
+                <action id="createAction" type="list_create"/>
+                <action id="editAction" type="list_edit"/>
+                <action id="removeAction" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="user"/>
+                <column property="title"/>
+                <column property="body"/>
+                <column property="region"/>
+                <column property="approveDate"/>
+                <column property="approvedBy"/>
+            </columns>
+        </dataGrid>
+        <simplePagination dataLoader="postRequestsDl"/>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>
