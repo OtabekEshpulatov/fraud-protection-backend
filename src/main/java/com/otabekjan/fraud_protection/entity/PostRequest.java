@@ -49,6 +49,6 @@ public class PostRequest extends AbstractEntity {
 
     @OrderBy(value = "sort")
     @Composition
-    @OneToMany(mappedBy = "request")
+    @OneToMany(mappedBy = "request", cascade = CascadeType.PERSIST)
     private List<PostRequestMedia> medias;
 }

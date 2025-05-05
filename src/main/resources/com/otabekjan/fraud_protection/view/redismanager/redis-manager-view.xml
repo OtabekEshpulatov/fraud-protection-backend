@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="Cache Manager">
+    <data readOnly="true">
+        <keyValueCollection id="cachesDc">
+            <properties>
+                <property name="cacheManager" datatype="string"/>
+                <property name="cacheName" datatype="string"/>
+            </properties>
+        </keyValueCollection>
+    </data>
+    <layout>
+        <hbox id="buttonsPanel" classNames="buttons-panel" justifyContent="BETWEEN">
+            <button id="clearBtn" action="cachesDataGrid.clear"/>
+            <button id="flushBtn" icon="WARNING" themeNames="primary"/>
+        </hbox>
+        <select id="cacheManagersSelect" datatype="string" width="100%"/>
+        <dataGrid id="cachesDataGrid" width="100%" dataContainer="cachesDc">
+            <actions>
+                <action id="clear" icon="TRASH" actionVariant="DANGER" text="Clear"/>
+            </actions>
+            <columns>
+                <column property="cacheManager" header="Cache Manager"/>
+                <column property="cacheName" header="Cache Name"/>
+            </columns>
+        </dataGrid>
+    </layout>
+</view>

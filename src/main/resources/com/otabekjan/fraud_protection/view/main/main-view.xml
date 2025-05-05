@@ -37,7 +37,10 @@
             </section>
         </drawerLayout>
         <initialLayout>
-            <fragment class="com.otabekjan.fraud_protection.view.pendingpostsfragment.PendingPostsFragment"/>
+            <vbox>
+                <h4 text="Fraud Reports"/>
+                <fragment class="com.otabekjan.fraud_protection.view.pendingpostsfragment.PendingPostsFragment"/>
+            </vbox>
         </initialLayout>
     </appLayout>
 </mainView>

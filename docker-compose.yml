@@ -15,7 +15,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: 123
     networks:
       - app-network
-    platform: linux/amd64
+    restart: always
 
   db:
     image: postgres:16
@@ -29,7 +29,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - app-network
-    platform: linux/amd64
+    restart: always
 
   redis:
     image: redis:7.2
@@ -39,8 +39,7 @@ services:
     volumes:
       - redis-data:/data
     command: redis-server --appendonly yes
-    restart: unless-stopped
-    platform: linux/amd64
+    restart: always
 
 volumes:
   postgres-data:

@@ -153,9 +153,16 @@ public class $ {
 
     public static String makeFileUrl(String host, FileRef fileRef) {
         if (fileRef == null) return null;
-        String uri = fileRef.toString();
-        uri = uri + "/" + AppBeans.get(FileService.class).encode(fileRef);
-        return host + "/file/" + uri;
+        String id = AppBeans.get(FileService.class).encode(fileRef);
+        return host + "/file/" + id;
+    }
+
+    // NullPointerException-free comparator
+    public static <C extends Comparable<C>> int compare(C c1, C c2) {
+        if (c1 == null && c2 == null) return 0;
+        if (c1 == null) return -1;
+        if (c2 == null) return 1;
+        return Objects.compare(c1, c2, Comparator.naturalOrder());
     }
 
 }

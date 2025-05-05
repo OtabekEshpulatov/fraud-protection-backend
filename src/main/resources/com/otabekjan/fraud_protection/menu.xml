@@ -3,9 +3,16 @@
 
     <menu id="application" opened="true" title="Application" description="Core screens">
         <item view="User.list" title="Users"/>
+        <item view="Region.list" title="Regions"/>
+    </menu>
+
+    <menu id="moderatorsMenu" title="Posts" description="Posts screens">
         <item view="Post.list" title="Posts"/>
         <item view="PostRequest.list" title="Pending posts"/>
-        <item view="Region.list" title="Regions"/>
+    </menu>
+
+    <menu id="settings" title="Settings" description="App settings screens">
+        <item view="jb_RedisManagerView" title="Cache Manager"/>
     </menu>
 
 </menu-config>
