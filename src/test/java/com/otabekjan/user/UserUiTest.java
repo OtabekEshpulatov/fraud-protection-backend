@@ -1,7 +1,5 @@
 package com.otabekjan.user;
 
-import com.otabekjan.FraudProtectionBackendApplication;
-import com.otabekjan.entity.User;
 import com.otabekjan.view.user.UserDetailView;
 import com.otabekjan.view.user.UserListView;
 import io.jmix.core.DataManager;

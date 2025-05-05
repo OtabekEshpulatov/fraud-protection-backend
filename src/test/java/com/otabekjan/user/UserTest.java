@@ -1,6 +1,5 @@
 package com.otabekjan.user;
 
-import com.otabekjan.entity.User;
 import com.otabekjan.test_support.AuthenticatedAsAdmin;
 import io.jmix.core.DataManager;
 import io.jmix.core.security.UserRepository;
