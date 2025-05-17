@@ -12,6 +12,14 @@ import io.jmix.flowui.view.*;
 @EditedEntityContainer("postDc")
 public class PostDetailView extends StandardDetailView<Post> {
 
+
+    @Subscribe
+    public void onInitEntity(final InitEntityEvent<Post> event) {
+        event.getEntity().setActive(true);
+    }
+
+
+
     @Install(to = "mediasDataGrid.createAction", subject = "initializer")
     private void mediasDataGridCreateActionInitializer(final PostMedia postMedia) {
         postMedia.setPost(getEditedEntity());

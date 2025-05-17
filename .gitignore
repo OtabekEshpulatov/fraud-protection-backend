@@ -1,5 +1,7 @@
 .jmix
 
+
+src/main/resources/fraud_shield_push_sandbox.p12
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://appNotificationListView.title"
+      focusComponent="appNotificationsDataGrid">
+    <data>
+        <collection id="appNotificationsDc"
+                    class="com.otabekjan.fraud_protection.entity.AppNotification">
+            <fetchPlan extends="_base">
+                <property name="user" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="appNotificationsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from AppNotification e]]>
+                </query>
+            </loader>
+        </collection>
+        <instance id="appNotificationDc"
+                  class="com.otabekjan.fraud_protection.entity.AppNotification">
+            <fetchPlan extends="_base">
+                <property name="user" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="appNotificationDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout padding="false">
+        <formLayout id="layoutWrapper" classNames="master-detail-layout" height="100%">
+            <vbox id="listLayout" height="100%">
+                <genericFilter id="genericFilter"
+                               dataLoader="appNotificationsDl">
+                    <properties include=".*"/>
+                </genericFilter>
+                <hbox id="buttonsPanel" classNames="buttons-panel">
+                    <button id="createButton" action="appNotificationsDataGrid.createAction"/>
+                    <button id="editButton" action="appNotificationsDataGrid.editAction"/>
+                    <button id="removeButton" action="appNotificationsDataGrid.removeAction"/>
+                    <simplePagination id="pagination" dataLoader="appNotificationsDl"/>
+                </hbox>
+                <dataGrid id="appNotificationsDataGrid"
+                          width="100%"
+                          minHeight="20em"
+                          dataContainer="appNotificationsDc"
+                          columnReorderingAllowed="true">
+                    <actions>
+                        <action id="createAction" type="list_create"/>
+                        <action id="editAction" type="list_edit"/>
+                        <action id="removeAction" type="list_remove"/>
+                    </actions>
+                    <columns resizable="true">
+                        <column property="user"/>
+                        <column property="read"/>
+                        <column property="notificationType"/>
+                        <column property="title"/>
+                        <column property="body"/>
+                        <column property="payload"/>
+                    </columns>
+                </dataGrid>
+                <hbox id="lookupActions" visible="false">
+                    <button id="selectButton" action="selectAction"/>
+                    <button id="discardButton" action="discardAction"/>
+                </hbox>
+            </vbox>
+            <vbox id="detailsLayout" height="100%">
+                <formLayout id="form" dataContainer="appNotificationDc">
+                    <responsiveSteps>
+                        <responsiveStep minWidth="0" columns="1"/>
+                        <responsiveStep minWidth="40em" columns="2"/>
+                    </responsiveSteps>
+                    <entityPicker id="userField" property="user">
+                        <actions>
+                            <action id="entityLookupAction" type="entity_lookup"/>
+                            <action id="entityClearAction" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <checkbox id="readField" property="read"/>
+                    <select id="notificationTypeField" property="notificationType"/>
+                    <textField id="titleField" property="title"/>
+                    <textField id="bodyField" property="body"/>
+                    <textField id="payloadField" property="payload"/>
+                </formLayout>
+                <hbox id="detailActions">
+                    <button id="saveButton" text="msg:///actions.Save" icon="CHECK" themeNames="primary"/>
+                    <button id="cancelButton" text="msg:///actions.Cancel" icon="BAN"/>
+                </hbox>
+            </vbox>
+        </formLayout>
+    </layout>
+</view>

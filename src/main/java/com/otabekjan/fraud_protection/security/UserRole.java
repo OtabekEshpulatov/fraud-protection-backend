@@ -1,9 +1,6 @@
 package com.otabekjan.fraud_protection.security;
 
-import com.otabekjan.fraud_protection.entity.Post;
-import com.otabekjan.fraud_protection.entity.PostRequest;
-import com.otabekjan.fraud_protection.entity.Region;
-import com.otabekjan.fraud_protection.entity.TranslateEntity;
+import com.otabekjan.fraud_protection.entity.*;
 import io.jmix.security.model.EntityAttributePolicyAction;
 import io.jmix.security.model.EntityPolicyAction;
 import io.jmix.security.role.annotation.EntityAttributePolicy;
@@ -29,5 +26,12 @@ public interface UserRole {
 
     @EntityPolicy(entityClass = PostRequest.class, actions = {EntityPolicyAction.CREATE})
     void postRequest();
+
+    @EntityPolicy(entityClass = PostRequestMedia.class, actions = {EntityPolicyAction.CREATE})
+    void postRequestMedia();
+
+    @EntityAttributePolicy(entityClass = AppNotification.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
+    @EntityPolicy(entityClass = AppNotification.class, actions = {EntityPolicyAction.ALL})
+    void appNotifications();
 
 }

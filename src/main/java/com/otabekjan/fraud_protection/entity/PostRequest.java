@@ -2,6 +2,7 @@ package com.otabekjan.fraud_protection.entity;
 
 import io.jmix.core.DeletePolicy;
 import io.jmix.core.entity.annotation.OnDelete;
+import io.jmix.core.entity.annotation.OnDeleteInverse;
 import io.jmix.core.metamodel.annotation.Composition;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
@@ -25,6 +26,7 @@ public class PostRequest extends AbstractEntity {
 
     @JoinColumn(name = "USER_ID")
     @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(DeletePolicy.UNLINK)
     private User user;
 
     @InstanceName
@@ -50,5 +52,6 @@ public class PostRequest extends AbstractEntity {
     @OrderBy(value = "sort")
     @Composition
     @OneToMany(mappedBy = "request", cascade = CascadeType.PERSIST)
+    @OnDelete(DeletePolicy.UNLINK)
     private List<PostRequestMedia> medias;
 }

@@ -5,5 +5,10 @@
         <property name="region"/>
     </fetchPlan>
 
+    <fetchPlan name="post-apns-plan" entity="Post" extends="_base">
+        <property name="medias" fetchPlan="_local"/>
+        <property name="user" fetchPlan="_local"/>
+    </fetchPlan>
+
 
 </fetchPlans>

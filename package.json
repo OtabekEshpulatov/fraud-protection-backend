@@ -57,11 +57,11 @@
     "@polymer/polymer": "$@polymer/polymer",
     "react": "$react",
     "date-fns": "$date-fns",
+    "echarts": "$echarts",
     "@vaadin/vaadin-themable-mixin": "$@vaadin/vaadin-themable-mixin",
     "ace-builds": "$ace-builds",
     "@vaadin/vaadin-lumo-styles": "$@vaadin/vaadin-lumo-styles",
-    "@vaadin/vaadin-material-styles": "$@vaadin/vaadin-material-styles",
-    "echarts": "$echarts"
+    "@vaadin/vaadin-material-styles": "$@vaadin/vaadin-material-styles"
   },
   "vaadin": {
     "dependencies": {

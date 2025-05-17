@@ -2,7 +2,13 @@ package com.otabekjan.fraud_protection.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record RegisterRequestDto(@NotBlank String username, @NotBlank String password, String locale,
-                                 String profilePhotoId) {
+import java.util.UUID;
+
+public record RegisterRequestDto(@NotBlank String username,
+                                 @NotBlank String password,
+                                 String locale,
+                                 String profilePhotoId,
+                                 UUID regionId,
+                                 @NotBlank String appleDeviceToken) {
 }
     

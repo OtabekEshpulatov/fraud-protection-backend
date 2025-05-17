@@ -2,6 +2,7 @@ package com.otabekjan.fraud_protection.controller;
 
 import com.otabekjan.fraud_protection.dto.RegisterRequestDto;
 import com.otabekjan.fraud_protection.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ public class RegistrationController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<?> register(@RequestBody RegisterRequestDto dto) {
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterRequestDto dto) {
         userService.registerUser(dto);
         return ResponseEntity.ok().build();
     }

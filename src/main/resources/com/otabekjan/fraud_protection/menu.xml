@@ -4,6 +4,8 @@
     <menu id="application" opened="true" title="Application" description="Core screens">
         <item view="User.list" title="Users"/>
         <item view="Region.list" title="Regions"/>
+        <item view="AppNotification.list"
+              title="msg://com.otabekjan.fraud_protection.view.appnotification/appNotificationListView.title"/>
     </menu>
 
     <menu id="moderatorsMenu" title="Posts" description="Posts screens">

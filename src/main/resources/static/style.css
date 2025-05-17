@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 16px;
+}
+
+.slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.slider img {
+    height: 200px;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+#post-content {
+    margin-bottom: 40px;
+}
+
+.related-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+.related-posts .post {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #fafafa;
+}
+
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 15px;
+    width: calc(33% - 10px);
+    box-sizing: border-box;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card .title {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+}
+
+.card .meta {
+    font-size: 13px;
+    color: #555;
+}
+

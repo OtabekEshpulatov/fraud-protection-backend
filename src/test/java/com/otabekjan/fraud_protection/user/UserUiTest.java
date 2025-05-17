@@ -1,6 +1,7 @@
 package com.otabekjan.fraud_protection.user;
 
 import com.otabekjan.fraud_protection.FraudProtectionBackendApplication;
+import com.otabekjan.fraud_protection.entity.User;
 import com.otabekjan.fraud_protection.view.user.UserDetailView;
 import com.otabekjan.fraud_protection.view.user.UserListView;
 import io.jmix.core.DataManager;

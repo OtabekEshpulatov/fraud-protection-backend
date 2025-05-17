@@ -5,7 +5,9 @@
     <data>
         <instance id="userDc"
                   class="com.otabekjan.fraud_protection.entity.User">
-            <fetchPlan extends="_base"/>
+            <fetchPlan extends="_base">
+                <property name="region" fetchPlan="_base"/>
+            </fetchPlan>
             <loader/>
         </instance>
     </data>
@@ -32,8 +34,16 @@
             <textField id="emailField" property="email"/>
             <comboBox id="timeZoneField" property="timeZoneId" clearButtonVisible="true"/>
             <checkbox id="activeField" property="active"/>
-            <fileStorageUploadField id="profilePhotoField" property="profilePhoto"/>
+            <fileStorageUploadField id="profilePhotoField" property="profilePhoto" maxFileSize="10971520"/>
             <checkbox id="verifiedField" property="verified"/>
+            <textField id="localeField" property="locale"/>
+            <entityPicker id="regionField" property="region">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <textField id="appleDeviceTokenField" property="appleDeviceToken"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>

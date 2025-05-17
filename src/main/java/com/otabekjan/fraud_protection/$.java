@@ -146,15 +146,37 @@ public class $ {
         return new HashSet<>();
     }
 
+
     public static String makeFileUrl(FileRef fileRef) {
         String host = AppBeans.get(Environment.class).getProperty("app.url");
-        return makeFileUrl(host, fileRef);
+        return makeFileUrl(host, fileRef, null);
     }
 
-    public static String makeFileUrl(String host, FileRef fileRef) {
+    public static String makeFileUrl(FileRef fileRef, Map<String, String> queryParams) {
+        String host = AppBeans.get(Environment.class).getProperty("app.url");
+        return makeFileUrl(host, fileRef, queryParams);
+    }
+
+    public static String makeFileUrl(String host, FileRef fileRef, Map<String, String> queryParams) {
         if (fileRef == null) return null;
         String id = AppBeans.get(FileService.class).encode(fileRef);
-        return host + "/file/" + id;
+        StringBuilder finalUrl = new StringBuilder(host + "/file/" + id);
+
+        if (queryParams != null) {
+            finalUrl.append("?");
+            for (Map.Entry<String, String> entry : queryParams.entrySet()) {
+                finalUrl.append(entry.getKey())
+                        .append("=")
+                        .append(entry.getValue())
+                        .append("&");
+            }
+        }
+
+        return finalUrl.toString();
+    }
+
+    public static String makeInlineFileUrl(FileRef media) {
+        return makeFileUrl(media,Map.of("Content-disposition", "inline"));
     }
 
     // NullPointerException-free comparator
@@ -164,5 +186,6 @@ public class $ {
         if (c2 == null) return 1;
         return Objects.compare(c1, c2, Comparator.naturalOrder());
     }
+
 
 }

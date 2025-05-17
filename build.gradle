@@ -57,6 +57,19 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
     implementation("org.springframework.boot:spring-boot-starter-validation:3.4.5")
     implementation 'io.jmix.charts:jmix-charts-flowui-starter'
+
+    implementation 'com.eatthepath:pushy:0.15.4'
+//    implementation 'com.notnoop.apns:apns:1.0.0.Beta6'
+
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    testImplementation 'org.springframework.amqp:spring-rabbit-test'
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+//    implementation("org.springframework:spring-webmvc:7.0.0-M5")
+
+
+    implementation 'io.jmix.appsettings:jmix-appsettings-starter'
+    implementation 'io.jmix.appsettings:jmix-appsettings-flowui-starter'
 }
 
 configurations.implementation {

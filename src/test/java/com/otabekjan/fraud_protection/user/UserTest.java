@@ -1,6 +1,7 @@
 package com.otabekjan.fraud_protection.user;
 
-import com.otabekjan.fraud_protection.test_support.AuthenticatedAsAdmin;
+import com.otabekjan.fraud_protection.entity.User;
+import com.otabekjan.test_support.AuthenticatedAsAdmin;
 import io.jmix.core.DataManager;
 import io.jmix.core.security.UserRepository;
 import org.junit.jupiter.api.AfterEach;

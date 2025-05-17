@@ -1,9 +1,12 @@
 package com.otabekjan.fraud_protection.entity;
 
+import io.jmix.core.DeletePolicy;
 import io.jmix.core.FileRef;
 import io.jmix.core.HasTimeZone;
 import io.jmix.core.annotation.Secret;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.entity.annotation.OnDelete;
+import io.jmix.core.entity.annotation.OnDeleteInverse;
 import io.jmix.core.entity.annotation.SystemLevel;
 import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.InstanceName;
@@ -69,6 +72,16 @@ public class User implements JmixUserDetails, HasTimeZone {
 
     @Column(name = "PROFILE_PHOTO", length = 1024)
     private FileRef profilePhoto;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDeleteInverse(DeletePolicy.UNLINK)
+    @OnDelete(DeletePolicy.UNLINK)
+    @JoinColumn(name = "REGION_ID")
+    private Region region;
+
+    @Column(name = "APPLE_DEVICE_TOKEN", length = 1024)
+    private String appleDeviceToken;
+
 
     @Transient
     private Collection<? extends GrantedAuthority> authorities;

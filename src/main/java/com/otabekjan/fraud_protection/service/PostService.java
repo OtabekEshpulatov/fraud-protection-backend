@@ -4,14 +4,13 @@ import com.otabekjan.fraud_protection.$;
 import com.otabekjan.fraud_protection.dto.PostDto;
 import com.otabekjan.fraud_protection.dto.PostUserDto;
 import com.otabekjan.fraud_protection.entity.*;
-import io.jmix.core.DataManager;
-import io.jmix.core.FluentLoader;
-import io.jmix.core.Id;
-import io.jmix.core.TimeSource;
+import io.jmix.core.*;
+import io.jmix.core.security.Authenticated;
 import io.jmix.core.security.CurrentAuthentication;
 import io.jmix.core.security.SystemAuthenticator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
@@ -26,6 +25,7 @@ public class PostService {
     private final CurrentAuthentication currentAuthentication;
     private final TimeSource timeSource;
     private final TranslateService translateService;
+    private final EntityService entityService;
 
     private static String[] split(String tags) {
         if (tags == null) return new String[]{};
@@ -66,8 +66,8 @@ public class PostService {
     }
 
     @Transactional
-    public List<PostDto> getSimilarPostsAndIncrementView(UUID postId, Locale locale, int limit) {
-        List<PostDto> similarPosts = getSimilarPosts(postId, locale, limit);
+    public List<PostDto> getSimilarPostsAndIncrementView(UUID postId, Locale locale, int limit, boolean mediaInline) {
+        List<PostDto> similarPosts = getSimilarPosts(postId, locale, limit, mediaInline);
         incrementViewCount(postId);
         return similarPosts;
     }
@@ -80,7 +80,7 @@ public class PostService {
         }));
     }
 
-    public List<PostDto> getSimilarPosts(UUID postId, Locale locale, int limit) {
+    public List<PostDto> getSimilarPosts(UUID postId, Locale locale, int limit, boolean mediaInline) {
         String tags = dataManager.loadValue("select e.tags from Post e where e.id = :id", String.class)
                 .parameter("id", postId)
                 .optional().orElse("");
@@ -114,8 +114,13 @@ public class PostService {
 
         List<Post> posts = loader.list();
 
-        List<PostDto> postDtos = conver2Dto(locale, posts);
-        return postDtos;
+        return conver2Dto(locale, posts);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public PostDto transformPost(Locale locale, Post post) {
+        post = entityService.reload(post, "post-apns-plan");
+        return conver2Dto(locale, List.of(post)).get(0);
     }
 
     private List<PostDto> conver2Dto(Locale locale, List<Post> posts) {
@@ -147,7 +152,8 @@ public class PostService {
 
         String[] urls = new String[medias.size()];
         for (int i = 0; i < medias.size(); i++) {
-            urls[i] = $.makeFileUrl(medias.get(i).getMedia());
+            FileRef media = medias.get(i).getMedia();
+            urls[i] = $.makeFileUrl(media);
         }
 
         return urls;
@@ -165,4 +171,22 @@ public class PostService {
     }
 
 
+    @Authenticated
+    @Transactional
+    public PostDto getPostById(UUID id) {
+        Locale locale = null;
+        if (currentAuthentication.getUser() instanceof User user) {
+            String localeStr = Objects.requireNonNullElse(user.getLocale(), "ru");
+            locale = Locale.forLanguageTag(localeStr);
+        } else {
+            locale = Locale.forLanguageTag("ru");
+        }
+
+        Post post = entityService.loadById(Post.class, id);
+        return transformPost(locale, post);
+    }
+
+    public Collection<PostDto> getRelatedPosts(UUID id, Locale locale, boolean mediaInline) {
+        return getSimilarPosts(id, locale, Integer.MAX_VALUE, mediaInline);
+    }
 }

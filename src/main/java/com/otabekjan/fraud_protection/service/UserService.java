@@ -1,6 +1,7 @@
 package com.otabekjan.fraud_protection.service;
 
 import com.otabekjan.fraud_protection.dto.RegisterRequestDto;
+import com.otabekjan.fraud_protection.entity.Region;
 import com.otabekjan.fraud_protection.entity.User;
 import com.otabekjan.fraud_protection.exceptions.FriendlyException;
 import com.otabekjan.fraud_protection.security.UserRole;
@@ -9,11 +10,14 @@ import io.jmix.core.FileRef;
 import io.jmix.core.security.Authenticated;
 import io.jmix.security.role.assignment.RoleAssignmentRoleType;
 import io.jmix.securitydata.entity.RoleAssignmentEntity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,6 +29,11 @@ public class UserService {
     private final DataManager dataManager;
     private final PasswordEncoder passwordEncoder;
     private final FileService fileService;
+    private final EntityService entityService;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
 
     @Authenticated
     @Transactional
@@ -46,8 +55,11 @@ public class UserService {
 
         user = dataManager.create(User.class);
         user.setUsername(dto.username());
+        user.setRegion(entityService.loadById(Region.class, dto.regionId()));
+        user.setAppleDeviceToken(dto.appleDeviceToken());
         user.setPassword(passwordEncoder.encode(dto.password()));
         user.setLocale(dto.locale());
+
 
         FileRef fileRef = fileService.decode(dto.profilePhotoId());
         if (fileRef != null) user.setProfilePhoto(fileRef);
@@ -67,5 +79,14 @@ public class UserService {
         roleAssignment.setUsername(newUser.getUsername());
         roleAssignment.setRoleType(RoleAssignmentRoleType.RESOURCE);
         dataManager.unconstrained().save(roleAssignment);
+    }
+
+    public List<Object[]> getUserRegistrationsByDay() {
+        return entityManager.createQuery(
+                        "SELECT u.createdDate, COUNT(u) " +
+                                "FROM User u " +
+                                "GROUP BY u.createdDate " +
+                                "ORDER BY u.createdDate ASC", Object[].class)
+                .getResultList();
     }
 }
